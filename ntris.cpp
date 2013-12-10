@@ -8,7 +8,7 @@ ntris::ntris() {
     next = brickbuddle();
     count = 0;
     score = 0;
-    speed = 20;
+    speed = 40;
     for (int i = 0; i < MHEIGHT+1; i++) {
         for (int j = 0; j < MWIDTH/2; j++) {
             gbricks[i][j] = brick(i, 2*j);
@@ -43,8 +43,9 @@ void ntris::show_next() {
     werase(mw.previewwin);
     wattron(mw.previewwin, COLOR_PAIR(next.type+1));
     for (int i = 0; i < 4; i++)
-        mvwprintw(mw.previewwin, next.bricks[i].y, next.bricks[i].x*2, "**");
+        mvwprintw(mw.previewwin, next.bricks[i].y+1, next.bricks[i].x*2+1, "  ");
     wattroff(mw.previewwin, COLOR_PAIR(next.type+1));
+    box(mw.previewwin, 0, 0);
     wrefresh(mw.previewwin);
 }
 
@@ -141,13 +142,14 @@ void ntris::get_key() {
         default:
             this->game_contine();
     }
+    flushinp();
 }
 
 void ntris::main_refresh() {
     for (int i = 0; i < MHEIGHT; i++) {
         for (int j = 0; j < MWIDTH/2; j++) {
             wattron(mw.mainwin, COLOR_PAIR(gbricks[i][j].color));
-            mvwprintw(mw.mainwin, i, j*2, "**");
+            mvwprintw(mw.mainwin, i+1, j*2+1, "  ");
             wattroff(mw.mainwin, COLOR_PAIR(gbricks[i][j].color));
         }
     }
@@ -209,5 +211,6 @@ void ntris::show_score()
     werase(mw.scorewin);
     mvwprintw(mw.scorewin, 2, 2, "score:%d", score);
     mvwprintw(mw.scorewin, 4, 2, "speed:%d", speed);
+    box(mw.previewwin, 0, 0);
     wrefresh(mw.scorewin);
 }

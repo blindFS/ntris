@@ -29,11 +29,8 @@ mwin::mwin() {
 
     curs_set(0); // remove curser
     refresh();
-    mainwin    = newwin(30, 30, 0, 0);
-    previewwin = newwin(7 ,14, 0, 35);
-    scorewin   = newwin(10, 20, 8, 35);
-    box(scorewin, 0, 0);
-    wrefresh(previewwin);
-    wrefresh(mainwin);
-    wrefresh(scorewin);
+    mainwin    = newwin(32, 32, 0, 0);
+    previewwin = newwin(9, 16, 0, 35);
+    scorewin   = newwin(10, 20, 12, 35);
+    box(mainwin, 0, 0);
 }
